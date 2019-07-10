@@ -1,38 +1,14 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(name: 'IS_RELEASE',
-            defaultValue: false,
-            description: 'Enable if you would like to build Release Candidate.'
-        )
-    }
-
-    environment {
-        MVNREPO_USER     = credentials('nexus_user')
-        MVNREPO_PASSWORD = credentials('nexus_psswd')
-        MULEREPO_USER     = credentials('mulerepo_usr')
-        MULEREPO_PASSWORD = credentials('mulerepo_psswd')
-        MULEANYPOINT_USER = credentials('anypoint_username')
-        MULEANYPOINT_PASSWORD = credentials('anypoint_password')
-        SCM_USER = credentials('scm_user')
-        SCM_PASSWORD = credentials('scm_psswd')      
-        MVNREPO_URL = credentials('mvn_repo_url') //e.g. http://172.17.0.7:8081
-        MVNREPO_CENTRAL = 'maven-central/'
-        MVNREPO_MULE_EE = 'maven-mule-ee/'
-        MVNREPO_MULE_PUBLIC = 'maven-mule-public/'
-    } 
-    
-    triggers {
-        pollSCM('* * * * *')
-    }
-
     tools {
         maven 'maven' 
     }
 
     stages {
-    
+        stage('Checkout') {
+            checkout scm
+        }
         stage('FEATURE Build and Test') {
             when {
                 allOf {
