@@ -3,9 +3,9 @@ node {
       checkout scm
    }
   stage('Maven Version Check') {
-        echo "This time, the Maven version should be 3.3.9: $MAVEN_HOME"
-      }
-
+        def mvnHome = tool 'M3'
+        bat "${mvnHome}\\bin\\mvn -B install"
+    }
    stage('Code Quality Check') {
       echo 'Code quality analysis'
    }
