@@ -4,9 +4,8 @@ node {
       checkout scm
    }
    stage('Code Quality Check') {
-      mvnHome = tool 'Maven-windows'
-      bat(/"${mvnHome}\bin\mvn" clean package /)
-      echo 'Code quality analysis'
+      mvnHome = tool 'Maven-linux'
+      echo 'Code quality analysis : $mvnHome'
    }
    stage('Build') {
       echo 'Build is completed successfully'
