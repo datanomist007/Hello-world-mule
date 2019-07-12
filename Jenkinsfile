@@ -1,10 +1,12 @@
 node {
+   def jdkHome
    def mvnHome
    stage('Checkout') { // for display purposes
       checkout scm
    }
    stage('Code Quality Check') {
-      mvnHome = tool 'Maven-linux'
+      jdkHome = tool 'jdk'
+      mvnHome = tool 'maven'
       echo 'Code quality analysis : $mvnHome'
    }
    stage('Build') {
