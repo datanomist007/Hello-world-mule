@@ -9,7 +9,6 @@ node {
       mvnHome = tool 'maven'
       echo 'Code quality analysis : $mvnHome'
       sh 'mvn clean'
-      sh 'mvn package'
    }
    stage('Build') {
       echo 'Build is completed successfully'
