@@ -8,7 +8,7 @@ node {
       jdkHome = tool 'jdk'
       mvnHome = tool 'maven'
       echo 'Code quality analysis : $mvnHome'
-      sh "'${mvnHome}/usr/share/maven' -Dmaven.test.failure.ignore clean package"'
+      sh 'mvn clean'
    }
    stage('Build') {
       echo 'Build is completed successfully'
