@@ -8,6 +8,7 @@ node {
       jdkHome = tool 'jdk'
       mvnHome = tool 'maven'
       echo 'Code quality analysis : $mvnHome'
+      sh 'mvn -f mule-jenkins-pipeline/pom.xml package'
    }
    stage('Build') {
       echo 'Build is completed successfully'
