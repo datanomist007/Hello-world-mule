@@ -11,6 +11,7 @@ node {
    }
    stage('Build') {
       echo 'Build is completed successfully'
+      sh 'mvn clean package'
    }
    stage('Munit') {
       echo 'Munit test cases'
