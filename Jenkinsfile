@@ -20,7 +20,7 @@ node {
     }
    stage('Munit') {
       echo 'Munit test cases'
-      echo "Build ${BUILD_NUMBER : ${BUILD_URL}"
+      echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    post {
         failure {
