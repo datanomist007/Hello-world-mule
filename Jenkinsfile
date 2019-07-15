@@ -22,12 +22,17 @@ node {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
-   post {
-        always {
-            // notify users when the Pipeline fails
-            mail to: 'haridasuvenkatesh@gmail.com',
-               subject: "Failed Pipeline ${env.BUILD_NUMBER}: ${currentBuild.fullDisplayName}",
-                    body: "Something is wrong with ${env.BUILD_URL}"
-        }
+   stage ('Email_Notification') {
+  try {
+      currentBuild.result = 'SUCCESS'
     }
+  catch (err) {
+    currentBuild.result = 'FAILURE'
+  }
+  finally {
+    mail to: 'haridasuvenkatesh@gmail.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${env.BUILD_URL} has result ${currentBuild.result}"
+  }
+}
 }
