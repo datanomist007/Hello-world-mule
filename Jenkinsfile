@@ -11,9 +11,7 @@ node {
    }
    stage('Build') {
       echo 'Build is completed successfully'
-      steps {
         sh 'mvn -v'
-      }
     }
    stage('Munit') {
       echo 'Munit test cases'
