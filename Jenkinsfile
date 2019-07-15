@@ -24,15 +24,16 @@ node {
    }
    stage ('Email_Notification') {
   try {
-      currentBuild.currentResult = 'SUCCESS'
+     echo "${currentBuild.getCurrentResult}"
+      currentBuild.getCurrentResult = 'SUCCESS'
     }
   catch (e) {
-    currentBuild.currentResult = 'FAILURE'
+    currentBuild.getCurrentResult = 'FAILURE'
   }
   finally {
     mail to: 'haridasuvenkatesh@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-      body: "${env.BUILD_URL} has result ${currentBuild.currentResult}"
+      body: "${BUILD_URL} has result ${currentBuild.getCurrentResult}"
   }
 }
 }
