@@ -7,17 +7,14 @@ node {
    stage('Code Quality Check') {
       jdkHome = tool 'jdk'
       mvnHome = tool 'maven'
-      stages {
-    stage("Build") {
-      steps {
-        sh 'mvn -v'
-      }
-    }
       echo 'Code quality analysis : $mvnHome'
    }
    stage('Build') {
       echo 'Build is completed successfully'
-   }
+      steps {
+        sh 'mvn -v'
+      }
+    }
    stage('Munit') {
       echo 'Munit test cases'
    }
