@@ -1,14 +1,14 @@
 node {
    def jdkHome
    def mvnHome
-   ArtifactName = readMavenPom().getArtifactId()
-   Version = readMavenPom().getVersion()
    stage('Checkout') { // for display purposes
       checkout scm
    }
    stage('Code Quality Check') {
       jdkHome = tool 'jdk'
       mvnHome = tool 'maven'
+      ArtifactName = readMavenPom().getArtifactId()
+   Version = readMavenPom().getVersion()
       echo 'Code quality analysis : ${mvnHome}'
    }
    stage('Build') {
