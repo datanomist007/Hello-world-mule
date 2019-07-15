@@ -7,14 +7,14 @@ node {
    stage('Code Quality Check') {
       jdkHome = tool 'jdk'
       mvnHome = tool 'maven'
-      ArtifactName = readMavenPom().getArtifactId()
+   ArtifactName = readMavenPom().getArtifactId()
    Version = readMavenPom().getVersion()
-      echo 'Code quality analysis : ${mvnHome}'
+      echo "Code quality analysis : ${mvnHome}"
    }
    stage('Build') {
       echo 'Build is completed successfully'
-      echo 'artifactId : ${ArtifactName}'
-      echo 'Version : ${Version}'
+      echo "artifactId : ${ArtifactName}"
+      echo "Version : ${Version}"
         sh 'mvn -v'
       sh 'mvn clean'
     }
