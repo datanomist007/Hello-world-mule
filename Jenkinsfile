@@ -23,7 +23,7 @@ node {
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    stage ('Email_Notification') {
-  if("${currentBuild.currentResult}" == SUCCESS)
+  if("${currentBuild.currentResult}" == "SUCCESS")
   {
      notifySuccessful()
   }else{
