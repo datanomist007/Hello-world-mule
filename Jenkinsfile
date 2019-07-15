@@ -7,6 +7,12 @@ node {
    stage('Code Quality Check') {
       jdkHome = tool 'jdk'
       mvnHome = tool 'maven'
+      stages {
+    stage("Build") {
+      steps {
+        sh 'mvn -v'
+      }
+    }
       echo 'Code quality analysis : $mvnHome'
    }
    stage('Build') {
