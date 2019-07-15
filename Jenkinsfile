@@ -16,7 +16,7 @@ node {
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
         sh 'mvn -v'
-      sh 'mvn clean install'
+      sh 'mvn clean'
     }
    stage('Munit') {
       echo 'Munit test cases'
@@ -24,9 +24,11 @@ node {
    }
    stage ('Email_Notification') {
   try {
+     echo "${currentBuild.result}"
       currentBuild.result = 'SUCCESS'
     }
   catch (e) {
+     echo "${currentBuild.result}"
     currentBuild.result = 'FAILURE'
   }
   finally {
