@@ -12,7 +12,7 @@ node {
    stage('Build') {
       echo 'Build is completed successfully'
         sh 'mvn -v'
-      sh 'mvn clean install'
+      sh 'mvn clean'
     }
    stage('Munit') {
       echo 'Munit test cases'
