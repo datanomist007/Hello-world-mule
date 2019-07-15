@@ -23,17 +23,27 @@ node {
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    stage ('Email_Notification') {
-  try {
-     echo "${currentBuild.getCurrentResult}"
-      currentBuild.getCurrentResult = 'SUCCESS'
+  if("${currentBuild.currentResult}" == SUCCESS)
+  {
+  def notifySuccessful()
+  }else{
+     def notifyFailed()
     }
-  catch (e) {
-    currentBuild.getCurrentResult = 'FAILURE'
-  }
-  finally {
-    mail to: 'haridasuvenkatesh@gmail.com',
-      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-      body: "${BUILD_URL} has result ${currentBuild.getCurrentResult}"
-  }
-}
+   }
+   def notifyFailed() {
+   emailext (
+       subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+       body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+     )
+ }
+   def notifySuccessful() {
+   emailext (
+       subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+       body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+     )
+ }
 }
