@@ -24,11 +24,11 @@ node {
    }
    stage ('Email_Notification') {
   try {
-     echo "${currentBuild.result}"
+     echo "${currentBuild.currentResult}"
       currentBuild.result = 'SUCCESS'
     }
   catch (e) {
-     echo "${currentBuild.result}"
+     echo "${currentBuild.currentResult}"
     currentBuild.result = 'FAILURE'
   }
   finally {
