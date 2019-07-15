@@ -33,17 +33,15 @@ node {
 }
 def notifyFailed() {
    emailext (
-       subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-       body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+      to: 'haridasuvenkatesh@gmail.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
    def notifySuccessful() {
    emailext (
-       subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-       body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+       to: 'haridasuvenkatesh@gmail.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
