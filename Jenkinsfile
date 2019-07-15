@@ -25,9 +25,9 @@ node {
    stage ('Email_Notification') {
   if("${currentBuild.currentResult}" == SUCCESS)
   {
-  def notifySuccessful()
+     notifySuccessful()
   }else{
-     def notifyFailed()
+     notifyFailed()
     }
    }
    def notifyFailed() {
