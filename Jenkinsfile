@@ -11,6 +11,7 @@ node {
    ArtifactName = readMavenPom().getArtifactId()
    Version = readMavenPom().getVersion()
       echo "Code quality analysis : ${mvnHome}"
+      
    }
    stage('Build') {
       echo 'Build is completed successfully'
@@ -18,6 +19,7 @@ node {
       echo "Version : ${Version}"
         sh 'mvn -v'
       sh 'mvn clean install'
+      notifyFailed()
     }
    stage('Munit') {
       echo 'Munit test cases'
