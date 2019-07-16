@@ -21,12 +21,6 @@ node {
    stage('Munit') {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
+      step([$class: 'Mailer', notifyEveryUnstableBuild: false, recipients: 'praveenbodasingi@gmail.com', sendToIndividuals: true])
    }
-   post {
-        always {
-        mail to: 'praveenbodasingi@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${BUILD_URL}"
-    }
-}
 }
