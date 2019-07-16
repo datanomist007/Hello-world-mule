@@ -1,0 +1,42 @@
+node {
+   def jdkHome
+   def mvnHome
+   stage('Code Quality Check') {
+      jdkHome = tool 'jdk'
+      mvnHome = tool 'maven'
+   ArtifactName = readMavenPom().getArtifactId()
+   Version = readMavenPom().getVersion()
+      echo "Code quality analysis : ${mvnHome}"   
+   }
+   stage('Deploy') {
+      echo 'Build is completed successfully'
+      echo "artifactId : ${ArtifactName}"
+      echo "Version : ${Version}"
+        sh 'mvn -v'
+      try{
+      if("${env.Environment}" == "PROD"){
+      echo "${env.Environment} is deploying"
+      }
+    else if("${env.Environment}" == "QA")
+    {
+    echo "${env.Environment} is deploying"
+    }
+    else{
+    echo "${env.Environment} is deploying"
+    }
+    }
+      catch(e){
+      currentBuild.result = 'FAILURE'
+                echo "ERROR: ${e}"
+            } finally {
+               emailNotification() 
+            }
+   }
+   }
+def emailNotification() {
+   emailext (
+      to: 'haridasuvenkatesh@gmail.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${BUILD_URL} has result ${currentBuild.currentResult}"
+     )
+ }
