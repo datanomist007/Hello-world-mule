@@ -17,7 +17,7 @@ node {
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
         sh 'mvn -v'
-      sh 'mvn clean'
+      sh 'mvn clean install'
     }
    stage('Munit') {
       echo 'Munit test cases'
@@ -32,14 +32,14 @@ node {
    }
 def notifyFailed() {
    emailext (
-      to: 'haridasuvenkatesh@gmail.com,praveenbodasingi@gmail.com',
+      to: 'haridasuvenkatesh@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
    def notifySuccessful() {
    emailext (
-       to: 'haridasuvenkatesh@gmail.com,praveenbodasingi@gmail.com',
+       to: 'haridasuvenkatesh@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
