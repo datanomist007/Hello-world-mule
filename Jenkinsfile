@@ -17,7 +17,7 @@ node {
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
         sh 'mvn -v'
-      sh 'mvn clean'
+      sh 'mvn clean install'
     }
    stage('Munit') {
       echo 'Munit test cases'
