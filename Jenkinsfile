@@ -17,18 +17,32 @@ node {
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
         sh 'mvn -v'
-      sh 'mvn clean install'
+      sh 'mvn clean'
     }
    stage('Munit') {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
-   if("${currentBuild.currentResult}" == "FAILURE")
-   {
-      mail (to: 'praveenbodasingi@gmail.com',
-         subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
-         body: "Please go to ${env.BUILD_URL}.");
-   }else {
-   echo "${currentBuild.currentResult} Good Job"
+   stage ('Email_Notification') {
+  if("${currentBuild.currentResult}" == "SUCCESS")
+  {
+     notifySuccessful()
+  }else{
+     notifyFailed()
+    }
    }
 }
+def notifyFailed() {
+   emailext (
+      to: 'praveenbodasingi@gmail.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${BUILD_URL} has result ${currentBuild.currentResult}"
+     )
+ }
+   def notifySuccessful() {
+   emailext (
+       to: 'praveenbodasingi@gmail.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${BUILD_URL} has result ${currentBuild.currentResult}"
+     )
+ }
