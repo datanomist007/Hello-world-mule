@@ -21,6 +21,6 @@ node {
    stage('Munit') {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
-      step([$class: 'Mailer', notifyEveryUnstableBuild: false, recipients: 'praveenbodasingi@gmail.com', sendToIndividuals: true])
+      emailext body: "${BUILD_URL} has result ${currentBuild.currentResult}", subject: "Status of pipeline: ${currentBuild.fullDisplayName}", to: 'praveenbodasingi@gmail.com'
    }
 }
