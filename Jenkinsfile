@@ -10,8 +10,7 @@ node {
       mvnHome = tool 'maven'
    ArtifactName = readMavenPom().getArtifactId()
    Version = readMavenPom().getVersion()
-      echo "Code quality analysis : ${mvnHome}"
-      
+      echo "Code quality analysis : ${mvnHome}"   
    }
    stage('Build') {
       echo 'Build is completed successfully'
@@ -19,16 +18,12 @@ node {
       echo "Version : ${Version}"
         sh 'mvn -v'
       try{
-      if(isMasterBranch()){
       sh 'mvn clean install'
-      }
-         else{
-         isDevelopeBranch()}
-        currentBuild.currentResult = 'SUCCESS' 
+        currentBuild.result = 'SUCCESS' 
       notifySuccessful()
     }
       catch(e){
-      currentBuild.currentResult = 'FAILURE'
+      currentBuild.result = 'FAILURE'
                 echo "ERROR: ${e}"
             } finally {
                notifyFailed() 
@@ -53,10 +48,3 @@ def notifyFailed() {
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
-def isMasterBranch() {
-    return this.config.branchName == 'master'
-}
-
-def isDevelopBranch() {
-    return this.config.branchName == 'developement'
-}
