@@ -19,14 +19,13 @@ node {
         sh 'mvn -v'
       try{
       sh 'mvn clean'
-        currentBuild.result = 'SUCCESS' 
-      notifySuccessful()
+        currentBuild.result = 'SUCCESS'
     }
       catch(e){
       currentBuild.result = 'FAILURE'
                 echo "ERROR: ${e}"
             } finally {
-               notifyFailed() 
+               emailNotification() 
             }
    }
    stage('Munit') {
@@ -34,16 +33,9 @@ node {
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    }
-def notifyFailed() {
+def emailNotification() {
    emailext (
       to: 'haridasuvenkatesh@gmail.com',
-      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-      body: "${BUILD_URL} has result ${currentBuild.currentResult}"
-     )
- }
-   def notifySuccessful() {
-   emailext (
-       to: 'haridasuvenkatesh@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
