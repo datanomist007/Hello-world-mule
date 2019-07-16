@@ -16,14 +16,14 @@ node {
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
         sh 'mvn -v'
-      sh 'mvn clean install'
+      sh 'mvn clean'
     }
    stage('Munit') {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    post {
-        failure {
+        always {
         mail to: 'praveenbodasingi@gmail.com',
              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
              body: "Something is wrong with ${BUILD_URL}"
