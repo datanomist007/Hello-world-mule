@@ -23,7 +23,6 @@ node {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
-   stage ('Email_Notification') {
   if("${currentBuild.currentResult}" == "SUCCESS")
   {
      notifySuccessful()
@@ -31,17 +30,16 @@ node {
      notifyFailed()
     }
    }
-}
 def notifyFailed() {
    emailext (
-      to: 'haridasuvenkatesh@gmail.com',
+      to: 'haridasuvenkatesh@gmail.com,praveenbodasingi@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
    def notifySuccessful() {
    emailext (
-       to: 'haridasuvenkatesh@gmail.com',
+       to: 'haridasuvenkatesh@gmail.com,praveenbodasingi@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
