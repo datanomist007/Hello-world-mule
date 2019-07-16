@@ -18,19 +18,26 @@ node {
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
         sh 'mvn -v'
+      try{
+      if(isMasterBranch()){
       sh 'mvn clean install'
-      notifyFailed()
+      }
+         else{
+         isDevelopeBranch()}
+        currentBuild.currentResult = 'SUCCESS' 
+      notifySuccessful()
     }
+      catch(e){
+      currentBuild.currentResult = 'FAILURE'
+                echo "ERROR: ${e}"
+            } finally {
+               notifyFailed() 
+            }
+   }
    stage('Munit') {
       echo 'Munit test cases'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
-  if("${currentBuild.currentResult}" == "SUCCESS")
-  {
-     notifySuccessful()
-  }else{
-     notifyFailed()
-    }
    }
 def notifyFailed() {
    emailext (
@@ -46,3 +53,10 @@ def notifyFailed() {
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
+def isMasterBranch() {
+    return this.config.branchName == 'master'
+}
+
+def isDevelopBranch() {
+    return this.config.branchName == 'developement'
+}
