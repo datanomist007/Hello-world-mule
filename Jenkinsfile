@@ -34,14 +34,14 @@ node {
 }
 def notifyFailed() {
    emailext (
-      to: 'praveenbodasingi@gmail.com',
+      to: 'haridasuvenkatesh@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
  }
    def notifySuccessful() {
    emailext (
-       to: 'praveenbodasingi@gmail.com',
+       to: 'haridasuvenkatesh@gmail.com',
       subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
       body: "${BUILD_URL} has result ${currentBuild.currentResult}"
      )
