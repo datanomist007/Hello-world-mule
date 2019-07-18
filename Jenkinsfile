@@ -19,7 +19,7 @@ echo 'maven  version is available'
       echo "Version : ${Version}"
         sh 'mvn -v'
       try{
-      sh 'mvn clean'
+      sh 'mvn clean install'
         currentBuild.result = 'SUCCESS'
     }
       catch(e){
