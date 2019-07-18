@@ -10,7 +10,8 @@ node {
       mvnHome = tool 'maven'
    ArtifactName = readMavenPom().getArtifactId()
    Version = readMavenPom().getVersion()
-      echo "Code quality analysis : ${mvnHome}"
+      echo "Code quality analysis : ${mvnHome}" 
+	  echo 'maven is availaible'
    }
    stage('Build') {
       echo 'Build is completed successfully'
