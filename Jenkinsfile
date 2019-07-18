@@ -17,7 +17,7 @@ echo 'maven  version is available'
       echo 'Build is completed successfully'
       echo "artifactId : ${ArtifactName}"
       echo "Version : ${Version}"
-        sh 'mvn -version'
+        sh 'mvn -v'
       try{
       sh 'mvn clean install'
         currentBuild.result = 'SUCCESS'
