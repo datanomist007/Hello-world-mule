@@ -8,6 +8,7 @@ node {
    }
    stage('Deploy') {
       echo 'Build is completed successfully'
+	  echo 'deployment has started'
         sh 'mvn -v'
       try{
       if("${env.Environment}" == "PROD"){
