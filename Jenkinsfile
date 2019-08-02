@@ -35,13 +35,19 @@ echo 'maven  version is available'
    }
    }
 stage('Docker Build') {
-        sh "docker build -t ${ArtifactName}:${Version} ."
+      agent any
+      steps {
+        sh 'docker build -t venkatesh/Hello-world-mule .'
+      }
     }
     stage('Docker Push') {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'awsdocker789', usernameVariable: 'aws427400')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker push ${ArtifactName}:${Version}"
+      agent any
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.awsdocker789} -p ${env.aws427400}"
+          sh 'docker push venkatesh/Hello-world-mule'
         }
+      }
     }
 def emailNotification() {
    emailext (
