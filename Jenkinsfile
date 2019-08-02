@@ -38,7 +38,7 @@ stage('Docker Build') {
         sh "docker build -t ${ArtifactName}:${Version} ."
     }
     stage('Docker Push') {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'awsdocker789', usernameVariable: 'aws427400')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh "docker push ${ArtifactName}:${Version}"
         }
