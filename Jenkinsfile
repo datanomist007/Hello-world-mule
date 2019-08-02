@@ -34,15 +34,17 @@ echo 'maven  version is available'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    }
-stage('Docker Build') {
-        sh "docker build -t ${ArtifactName}:${Version} ."
-    }
-    stage('Docker Push') {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'awsdocker789', usernameVariable: 'aws427400')]) {
+stage('Docker Build')
+steps {
+        sh 'docker build -t venkatesh/Hello-world-mule:latest .'
+      }
+    stage('Docker Push')
+steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'aws427400', usernameVariable: 'awsdocker789')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker push ${ArtifactName}:${Version}"
+          sh 'docker push venkatesh/Hello-world-mule'
         }
-    }
+      }
 def emailNotification() {
    emailext (
       to: 'haridasuvenkatesh@gmail.com',
