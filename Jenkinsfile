@@ -34,21 +34,6 @@ echo 'maven  version is available'
       echo "Build ${BUILD_NUMBER} : ${BUILD_URL}"
    }
    }
-stage('Docker Build') {
-      agent any
-      steps {
-        sh 'docker build -t venkatesh/Hello-world-mule .'
-      }
-    }
-    stage('Docker Push') {
-      agent any
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.awsdocker789} -p ${env.aws427400}"
-          sh 'docker push venkatesh/Hello-world-mule'
-        }
-      }
-    }
 def emailNotification() {
    emailext (
       to: 'haridasuvenkatesh@gmail.com',
